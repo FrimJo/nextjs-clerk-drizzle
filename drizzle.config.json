@@ -1,5 +1,5 @@
 {
-  "out": "./migrations",
+  "out": "./drizzle/migrations",
   "schema": "./src/db/schema.ts",
   "breakpoints": false
 }
