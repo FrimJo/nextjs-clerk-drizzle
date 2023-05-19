@@ -11,6 +11,7 @@ module.exports = {
     ecmaVersion: "latest",
   },
   plugins: ["react", "@typescript-eslint"],
+  ignorePatterns: ["src/components/ui"],
   rules: {
     "react/react-in-jsx-scope": "off",
     "no-unused-vars": "off",
