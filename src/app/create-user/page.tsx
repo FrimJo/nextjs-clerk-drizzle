@@ -36,7 +36,7 @@ export default async function CreateUser() {
     <div>
       Using email: {user.emailAddresses[0]?.emailAddress}
       <form action={createUser}>
-        <Input placeholder="fullName" name="fullName" />
+        <Input placeholder="Name" name="fullName" />
         <Button type="submit">Create user</Button>
       </form>
     </div>
