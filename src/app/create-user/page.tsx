@@ -13,8 +13,6 @@ import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export const runtime = "edge";
-
 const createUserFormData = z.object({
   fullName: z.string().min(5),
 });

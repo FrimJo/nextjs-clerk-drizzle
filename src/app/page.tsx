@@ -4,8 +4,6 @@ import { UserButton, auth } from "@clerk/nextjs";
 import { like } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-export const runtime = "edge";
-
 export default async function Home() {
   const user = auth();
   if (!user.userId) throw Error("No clerk id provided at login.");
