@@ -4,23 +4,28 @@ import { UserButton, auth } from "@clerk/nextjs";
 import { like } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-export default async function Home() {
-  const user = auth();
-  if (!user.userId) throw Error("No clerk id provided at login.");
+const getUser = async () => {
+  const clerkUser = auth();
 
-  const users = await db.select().from(UsersTable).where(like(UsersTable.clerkId, user.userId));
-  const dbUser = users.at(0);
+  if (!clerkUser.userId) throw Error("No clerk id provided at login.");
 
-  if (!dbUser) {
-    console.warn(`No user with clerk id ${user.userId} found in db. Redirect to create-user page.}`);
+  const [user] = await db.select().from(UsersTable).where(like(UsersTable.clerkId, clerkUser.userId));
+
+  if (!user) {
+    console.warn(`No user with clerk id ${clerkUser.userId} found in db. Redirect to create-user page.}`);
     redirect("/create-user");
   }
+
+  return user;
+};
+
+export default async function Home() {
+  const user = await getUser();
 
   return (
     <main>
       <div>
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-        <pre>{JSON.stringify(dbUser, null, 2)}</pre>
+        Welcome {user.fullName} ({user.email})
         <UserButton />
       </div>
     </main>
